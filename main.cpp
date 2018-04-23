@@ -1,3 +1,14 @@
+/*
+ * This code is open and free to the world. It is just a recreation of
+ * Timber Man game available on App Store for IOS and Play Store for Android.
+ *
+ * This code comines the Allegro librarie and Serial port communication
+ *
+ *
+ * @author: Jorge Zepeda Tinoco on 22/04/18
+ * @email: jorzet.94@gmail.com
+ */
+
 #include <allegro.h>
 #include "winalleg.h"
 #include <stdio.h>

@@ -1,3 +1,9 @@
+/*
+ * This librarie define a Serial class and its attributes and methods
+ *
+ * @author: Jorge Zepeda Tinoco on 22/04/18
+ * @email: jorzet.94@gmail.com
+ */
 
 #ifndef SERIALCLASS_H_INCLUDED
 #define SERIALCLASS_H_INCLUDED
