@@ -40,7 +40,7 @@ Some screenshots
   </tr>
 </table>
 
-This project recreates the TimberMan game in DevC++ with Allegro librarie
+This project recreates the TimberMan game in Dev-C++ with Allegro librarie
 
 Firstable you need to download the Allegro devpaks from http://devpaks.org and install it with Dev-C++ IDE go to "Tools->Package Manager" here you need to install the next packs:
   * Allegro
@@ -67,7 +67,7 @@ Firstable you need to download the Allegro devpaks from http://devpaks.org and i
         
 <strong>Note 2:</strong>
   The current project runs as it. Is not necessary to use "TimberManTxControl" and "TimberManRxControl"
-  But if you want to run the game with your own control uncomment the next lines from "main.c":
+  But if you want to run the game with your own control uncomment the next lines from "main.cpp":
   
   <blockquote>
     <pre>
