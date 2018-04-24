@@ -1,8 +1,9 @@
 /*
- * This code is open and free to the world. It is just a recreation of
- * Timber Man game available on App Store for IOS and Play Store for Android.
+ * This is an open source code. It is just a recreation of Timber Man
+ * game available on App Store for IOS and Play Store for Android.
  *
- * This code comines the Allegro librarie and Serial port communication
+ * This code combines the Allegro librarie (for UI) and Serial port
+ * communication (to get movements from RF control)
  *
  *
  * @author: Jorge Zepeda Tinoco on 22/04/18
@@ -274,7 +275,7 @@ int main() {
  
 END_OF_MAIN();
 
-// --- Bucle principal del juego -----
+// --- main do-while of game -----
 void buclePrincipal() {
   partidaTerminada = FALSE;
   int i = 0;
@@ -301,7 +302,9 @@ void buclePrincipal() {
 // function to chech keys to move or exit
 void comprobarTeclas(){   
 	
- /*Movimientos con teclas*/
+ /*
+  * Movements with keyboards
+  */
  
 	if (keypressed()) {
 		
@@ -358,8 +361,9 @@ void comprobarTeclas(){
 	
 	
 	/* 
-	* Movimiento con interface serial 
-	* Comment this if seccion if you want to run program without 
+	* Movements with RF control (serial communication)
+    *
+	* Uncomment this if section if you want to run program without
 	* control interface
 	*/
 	/*
@@ -422,7 +426,9 @@ void comprobarTeclas(){
 	}
 	*/
 	 
-   /*Movimiento con mouse*/
+   /*
+    * Movements with mouse
+    */
    
     if ((mouse_x > 0 && mouse_x < 175) && mouse_b & 1) {
 		var = 0;
@@ -467,7 +473,7 @@ void comprobarTeclas(){
 }
  
  
-// -- Intenta mover el personaje hacia la derecha
+// -- Move character to the right
 void moverDerecha() {
 	estado[0] = load_bmp("assets/lenador2.bmp", pal);
 	estado[1] = load_bmp("assets/lenador2_2.bmp", pal);
@@ -476,7 +482,7 @@ void moverDerecha() {
 }
  
  
-// -- Intenta mover el personaje hacia la izquierda
+// -- Move character to the left
 void moverIzquierda() {
 	estado[0] = load_bmp("assets/lenador1.bmp", pal);
 	estado[1] = load_bmp("assets/lenador1_2.bmp", pal);
@@ -486,7 +492,7 @@ void moverIzquierda() {
  
 
  
-// -- Mover otros elementos del juego 
+// -- Move another elements
 void moverElementos() {
 	moverEnemigo();
 }
@@ -495,7 +501,7 @@ void moverElementos() {
 // -- Comprobar colisiones de nuestro elemento con otros, o disparos con enemigos, etc
 void comprobarColisiones() {
 	
-    // Por ahora solo se comprueban las colisiones
+    // Now just is checked the colitions with the character
     if (lugarRama == lugarPersonaje) {
 		partidaTerminada = TRUE;
   		opcion = 3;
@@ -542,8 +548,8 @@ void talar(int i) {
     masked_blit(cursor, pantallaOculta, 0, 0, mouse_x, mouse_y, 13, 22);
     //draw_sprite(pantallaOculta, enemigo, xEnemigo, yEnemigo);
 
-    // Sincronizo con el barrido para evitar parpadeos
-    // y vuelco la pantalla oculta
+    // Sync to now allow blinkings on the screen
+    // and show hidden screen
     vsync();
     blit(pantallaOculta, screen, 0, 0, 0, 0, ANCHOPANTALLA, ALTOPANTALLA); 
  }
@@ -555,32 +561,32 @@ void cargarBarra() {
  
 // Draw elements on the screen
 void dibujarElementos(int i) {
- 
-  // Borro la pantalla
-  clear_bitmap(pantallaOculta);
- 
-  // Dibujo el "fondo", con los trozos de piezas anteriores
-  dibujarFondo();
- 
-  // Dibujo el personaje y el enemigo
-  draw_sprite(pantallaOculta, tronco, 110 + x_arb, 400);
-  pintarArbol();
-  
-  if(var == 0) {
-		draw_sprite(pantallaOculta, estado[i], x_izq, y);		
-  } else if(var==1) {
-		draw_sprite(pantallaOculta, estado[i], x_der, y);		
-  }
-  	
-  draw_sprite(pantallaOculta, pause[0], 255, 10);
-  cargarBarra();
-  masked_blit(cursor, pantallaOculta, 0, 0, mouse_x, mouse_y, 13, 22);
-  //draw_sprite(pantallaOculta, enemigo, xEnemigo, yEnemigo);
- 
-  // Sincronizo con el barrido para evitar parpadeos
-  // y vuelco la pantalla oculta
-  vsync();
-  blit(pantallaOculta, screen, 0, 0, 0, 0, ANCHOPANTALLA, ALTOPANTALLA);
+    
+    // Clear screen
+    clear_bitmap(pantallaOculta);
+    
+    // Draw the background, with the last elements
+    dibujarFondo();
+    
+    // Draw trunk
+    draw_sprite(pantallaOculta, tronco, 110 + x_arb, 400);
+    pintarArbol();
+    
+    if (var == 0) {
+        draw_sprite(pantallaOculta, estado[i], x_izq, y);
+    } else if (var==1) {
+        draw_sprite(pantallaOculta, estado[i], x_der, y);
+    }
+    
+    draw_sprite(pantallaOculta, pause[0], 255, 10);
+    cargarBarra();
+    masked_blit(cursor, pantallaOculta, 0, 0, mouse_x, mouse_y, 13, 22);
+    //draw_sprite(pantallaOculta, enemigo, xEnemigo, yEnemigo);
+    
+    // Sync to now allow blinkings on the screen
+    // and show hidden screen
+    vsync();
+    blit(pantallaOculta, screen, 0, 0, 0, 0, ANCHOPANTALLA, ALTOPANTALLA);
 }
  
 void pintarArbol() {
@@ -623,7 +629,7 @@ void pintarArbol() {
 		}
 		
 		if (250 + h2 <= 325)
-			h2+=10;
+			h2 += 10;
 			
 		if (h2 >= 75) {
 			arb[a][5] = arb[a][4];
@@ -688,11 +694,11 @@ void pintarArbol() {
 }
  
  
-// -- Pausa hasta el siguiente fotograma
+// -- Stop till the next frame
 void pausaFotograma(int i) {
-  // Para 25 fps: 1000/25 = 40 milisegundos de pausa
-  //rest(40);
-  rest(i);
+    // stop 25 fps: 1000/25 = 40 milliseconds
+    //rest(40);
+    rest(i);
 }
 
 int muerte() {
@@ -717,6 +723,7 @@ int muerte() {
 			}	
 			if (increce >= 465 && decrece >= 480) {
 				draw_sprite(pantallaOculta, presentacion, 0, 0);
+                
 				if (mouse_x > 40 && mouse_x < 116 && mouse_y > 415 && mouse_y < 475) {
 					draw_sprite(pantallaOculta, presentacion, 0, 0);
 					pintarArbol();
@@ -916,7 +923,7 @@ void store(int bandera) {
 // -- Funciones que no son de la logica juego, sino de 
 // funcionamiento interno de otros componentes
  
-// -- Pantalla de presentacion
+// -- Show splash
 void lanzarPresentacion(){
 	valor = FALSE;
 	int i = 0, j = 0;
@@ -1077,6 +1084,10 @@ void lanzarPresentacion(){
 						
 			  		ciclo = FALSE;
 				
+                    /*
+                     * Uncomment this section if you want to run program without
+                     * control interface
+                     */
 					/*
 					if (SP->IsConnected()) {
 						readResult = SP->ReadData(incomingData, dataLength);
@@ -1115,10 +1126,10 @@ void hilo() {
 	}	
 }
  
-// -- Mover el enemigo a su siguiente posicion
+// -- Move character to other position
 void moverEnemigo() {
   	xEnemigo += incr;
-  	// Da la vuelta si llega a un extremo
+  	// turn character
   	if ((xEnemigo > ANCHOPANTALLA-30) || (xEnemigo < 30))
 		incr = -incr;
 	for (int i = 0; i < 10; i++) {
@@ -1126,20 +1137,22 @@ void moverEnemigo() {
 	}
 }
  
-// -- Dibuja el fondo (por ahora, apenas un fragmento de suelo)
+// -- Draw background (just a fragment of floor)
 void dibujarFondo(){
     draw_sprite(pantallaOculta, fragmentoSuelo,0, 0);
 }
  
-/* -------------- Rutina de inicializaci?n -------- */
+/* -------------- Init rutine -------- */
 int inicializa() {
     int i,j;
  
-    allegro_init();        // Inicializamos Allegro
+    // Init Allegro
+    allegro_init();
     install_keyboard();
     install_timer();
     install_mouse();
-                           // Intentamos entrar a modo grafico
+    
+    // Try to start graphic mode
     set_color_depth(32);
     if (set_gfx_mode(GFX_SAFE,ANCHOPANTALLA, ALTOPANTALLA, 0, 0) != 0) {
         set_gfx_mode(GFX_TEXT, 0, 0, 0, 0);
@@ -1151,10 +1164,10 @@ int inicializa() {
     
     /*
     * TODO - changes this logic to auto-detect current port 
-	* where arduino is connected, is needed changes manually
+	* where Arduino is connected, is needed changes manually
 	* and recompile all project
 	*
-	* Comment this seccion if you want to run program without
+	* Uncomment this section if you want to run program without
 	* control interface
     */
     /*
@@ -1167,7 +1180,7 @@ int inicializa() {
         return 1; 
 	}*/
 	
-	// e intentamos abrir im?genes
+	// Try to load images
     cursor = load_bitmap("assets/cursor.bmp", NULL);       
 	tronco = load_bitmap("assets/tronco_base.bmp", pal);                 
     rama[0] = load_bitmap("assets/rama_izq.bmp", pal);
@@ -1289,11 +1302,11 @@ int inicializa() {
         allegro_message("No se ha podido abrir la imagen\n");
         return 1;
     }
-    // Pantalla oculta para evitar parpadeos
+    // Hidden screen to not allow blikings
     // (doble buffer)
     pantallaOculta = create_bitmap(ANCHOPANTALLA, ALTOPANTALLA);
  
-   // Y termino indicando que no ha habido errores
+   // return zero if didn't happen problems
    return 0;
 }
  
